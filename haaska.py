@@ -452,6 +452,14 @@ class CoverEntity(ToggleEntity):
     def turn_off(self):
         self._call_service('cover/close_cover')
 
+    def set_percentage(self, val):
+        self._call_service('cover/set_cover_position', {'position':val})
+    
+    def get_percentage(self):
+        state = self.ha.get('states/' + self.entity_id)
+        value = int(state['current_position'])
+        return value
+
 
 class LockEntity(Entity):
     def set_lock_state(self, state):
